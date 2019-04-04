@@ -13,7 +13,16 @@ var (
 // Helper is marking the caller function as helper function.
 // New and Errorf function is skipping the helper function.
 func Helper() {
-	frame := callerFrame(1)
+
+	var pc [1]uintptr
+	n := runtime.Callers(2, pc[:])
+	if n == 0 {
+		return
+	}
+
+	frames := runtime.CallersFrames(pc[:])
+	frame, _ := frames.Next()
+
 	if frame.PC == 0 {
 		return
 	}
@@ -24,6 +33,7 @@ func Helper() {
 	helpers[frame.Function] = struct{}{}
 }
 
+// callerFrame is get first caller frame except for helper function.
 func callerFrame(skip int) runtime.Frame {
 
 	var (

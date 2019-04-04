@@ -13,6 +13,7 @@ type wrapError struct {
 	caller  runtime.Frame
 }
 
+// Error is implements of error
 func (e *wrapError) Error() string {
 	return fmt.Sprint(e)
 }

@@ -6,6 +6,8 @@ import (
 	"golang.org/x/xerrors"
 )
 
+// printFrame is print of stack frame detail.
+// if p.Detail() == false, this is do not work.
 func printFrame(f runtime.Frame, p xerrors.Printer) {
 
 	if p.Detail() {
